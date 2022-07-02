@@ -31,4 +31,12 @@ export class AthleteController {
   async findById(@Param('_id') _id: ObjectId): Promise<Athlete> {
     return await this.athleteService.findById(_id)
   }
+
+  @Patch(':_id')
+  async findByIdAndUpdate(
+    @Param('_id') _id: ObjectId,
+    @Body() dto: UpdateAthleteDto
+  ): Promise<Athlete> {
+    return await this.athleteService.findByIdAndUpdate(_id, dto)
+  }
 }
