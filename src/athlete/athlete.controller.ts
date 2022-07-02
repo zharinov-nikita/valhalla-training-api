@@ -21,4 +21,9 @@ export class AthleteController {
   async create(@Body() dto: CreateAthleteDto): Promise<Athlete> {
     return await this.athleteService.create(dto)
   }
+
+  @Get()
+  async find(): Promise<Athlete[]> {
+    return await this.athleteService.find()
+  }
 }
