@@ -10,4 +10,8 @@ export class AthleteService {
   constructor(
     @InjectModel(Athlete.name) private athleteModel: Model<AthleteDocument>
   ) {}
+
+  async create(dto: CreateAthleteDto): Promise<Athlete> {
+    return await this.athleteModel.create(dto)
+  }
 }
