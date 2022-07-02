@@ -18,4 +18,8 @@ export class AthleteService {
   async find(): Promise<Athlete[]> {
     return await this.athleteModel.find()
   }
+
+  async findById(_id: ObjectId): Promise<Athlete> {
+    return await this.athleteModel.findById({ _id })
+  }
 }
