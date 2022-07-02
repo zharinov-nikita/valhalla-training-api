@@ -14,4 +14,8 @@ export class AthleteService {
   async create(dto: CreateAthleteDto): Promise<Athlete> {
     return await this.athleteModel.create(dto)
   }
+
+  async find(): Promise<Athlete[]> {
+    return await this.athleteModel.find()
+  }
 }
