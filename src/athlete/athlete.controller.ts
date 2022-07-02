@@ -16,4 +16,9 @@ import { AthleteService } from './athlete.service'
 @Controller('api/athlete')
 export class AthleteController {
   constructor(private athleteService: AthleteService) {}
+
+  @Post()
+  async create(@Body() dto: CreateAthleteDto): Promise<Athlete> {
+    return await this.athleteService.create(dto)
+  }
 }
