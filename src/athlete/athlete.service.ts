@@ -22,4 +22,11 @@ export class AthleteService {
   async findById(_id: ObjectId): Promise<Athlete> {
     return await this.athleteModel.findById({ _id })
   }
+
+  async findByIdAndUpdate(
+    _id: ObjectId,
+    dto: UpdateAthleteDto
+  ): Promise<Athlete> {
+    return await this.athleteModel.findByIdAndUpdate(_id, dto, { new: true })
+  }
 }
