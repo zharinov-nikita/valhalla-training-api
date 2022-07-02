@@ -26,4 +26,9 @@ export class AthleteController {
   async find(): Promise<Athlete[]> {
     return await this.athleteService.find()
   }
+
+  @Get(':_id')
+  async findById(@Param('_id') _id: ObjectId): Promise<Athlete> {
+    return await this.athleteService.findById(_id)
+  }
 }
