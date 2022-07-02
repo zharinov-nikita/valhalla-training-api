@@ -29,4 +29,8 @@ export class AthleteService {
   ): Promise<Athlete> {
     return await this.athleteModel.findByIdAndUpdate(_id, dto, { new: true })
   }
+
+  async findByIdAndDelete(_id: ObjectId): Promise<Athlete> {
+    return await this.athleteModel.findByIdAndDelete({ _id })
+  }
 }
