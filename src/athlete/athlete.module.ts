@@ -9,5 +9,6 @@ import { AthleteService } from './athlete.service'
     MongooseModule.forFeature([{ name: Athlete.name, schema: AthleteSchema }]),
   ],
   controllers: [AthleteController],
+  providers: [AthleteService],
 })
 export class AthleteModule {}
