@@ -39,4 +39,9 @@ export class AthleteController {
   ): Promise<Athlete> {
     return await this.athleteService.findByIdAndUpdate(_id, dto)
   }
+
+  @Delete(':_id')
+  async findByIdAndDelete(@Param('_id') _id: ObjectId) {
+    return await this.athleteService.findByIdAndDelete(_id)
+  }
 }
