@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model, ObjectId } from 'mongoose'
-import { Athlete, AthleteDocument } from './athlete.schema'
+import { Athlete, AthleteDocument } from './plan.schema'
 import { CreateAthleteDto } from './dto/create-plan.dto'
 import { UpdateAthleteDto } from './dto/update-plan.dto'
 

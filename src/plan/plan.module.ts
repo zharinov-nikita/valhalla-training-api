@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common'
 import { MongooseModule } from '@nestjs/mongoose'
-import { AthleteController } from './athlete.controller'
-import { Athlete, AthleteSchema } from './athlete.schema'
-import { AthleteService } from './athlete.service'
+import { AthleteController } from './plan.controller'
+import { Athlete, AthleteSchema } from './plan.schema'
+import { AthleteService } from './plan.service'
 
 @Module({
   imports: [
