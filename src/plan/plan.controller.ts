@@ -31,4 +31,12 @@ export class PlanController {
   async findById(@Param('_id') _id: ObjectId): Promise<Plan> {
     return await this.planService.findById(_id)
   }
+
+  @Patch(':_id')
+  async findByIdAndUpdate(
+    @Param('_id') _id: ObjectId,
+    @Body() dto: UpdatePlanDto
+  ): Promise<Plan> {
+    return await this.planService.findByIdAndUpdate(_id, dto)
+  }
 }
