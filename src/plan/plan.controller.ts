@@ -26,4 +26,9 @@ export class PlanController {
   async find(): Promise<Plan[]> {
     return await this.planService.find()
   }
+
+  @Get(':_id')
+  async findById(@Param('_id') _id: ObjectId): Promise<Plan> {
+    return await this.planService.findById(_id)
+  }
 }
