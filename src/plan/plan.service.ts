@@ -16,4 +16,8 @@ export class PlanService {
   async find(): Promise<Plan[]> {
     return await this.planModel.find()
   }
+
+  async findById(_id: ObjectId): Promise<Plan> {
+    return await this.planModel.findById({ _id })
+  }
 }
