@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common'
 import { ObjectId } from 'mongoose'
 import { CreateAthleteDto } from './dto/create-plan.dto'
-import { UpdateAthleteDto } from './dto/update-athlete.dto'
+import { UpdateAthleteDto } from './dto/update-plan.dto'
 import { Athlete } from './athlete.schema'
 import { AthleteService } from './athlete.service'
 
