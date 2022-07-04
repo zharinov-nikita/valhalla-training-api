@@ -21,4 +21,9 @@ export class PlanController {
   async create(@Body() dto: CreatePlanDto): Promise<Plan> {
     return await this.planService.create(dto)
   }
+
+  @Get()
+  async find(): Promise<Plan[]> {
+    return await this.planService.find()
+  }
 }
