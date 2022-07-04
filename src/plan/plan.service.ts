@@ -12,4 +12,8 @@ export class PlanService {
   async create(dto: CreatePlanDto): Promise<Plan> {
     return await this.planModel.create(dto)
   }
+
+  async find(): Promise<Plan[]> {
+    return await this.planModel.find()
+  }
 }
