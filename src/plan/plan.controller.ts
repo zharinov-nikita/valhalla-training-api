@@ -39,4 +39,9 @@ export class PlanController {
   ): Promise<Plan> {
     return await this.planService.findByIdAndUpdate(_id, dto)
   }
+
+  @Delete(':_id')
+  async findByIdAndDelete(@Param('_id') _id: ObjectId) {
+    return await this.planService.findByIdAndDelete(_id)
+  }
 }
