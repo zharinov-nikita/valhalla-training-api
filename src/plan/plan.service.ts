@@ -20,4 +20,8 @@ export class PlanService {
   async findById(_id: ObjectId): Promise<Plan> {
     return await this.planModel.findById({ _id })
   }
+
+  async findByIdAndUpdate(_id: ObjectId, dto: UpdatePlanDto): Promise<Plan> {
+    return await this.planModel.findByIdAndUpdate(_id, dto, { new: true })
+  }
 }
