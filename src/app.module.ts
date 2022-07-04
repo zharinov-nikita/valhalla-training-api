@@ -6,6 +6,7 @@ import { PeriodModule } from './period/period.module'
 import { PlanModule } from './plan/plan.module'
 import { DayModule } from './day/day.module'
 import { WorkoutModule } from './workout/workout.module'
+import { ExerciseModule } from './exercise/exercise.module'
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { WorkoutModule } from './workout/workout.module'
     CycleModule,
     DayModule,
     WorkoutModule,
+    ExerciseModule,
   ],
 })
 export class AppModule {}
