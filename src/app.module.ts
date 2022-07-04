@@ -4,6 +4,8 @@ import { AthleteModule } from './athlete/athlete.module'
 import { CycleModule } from './cycle/cycle.module'
 import { PeriodModule } from './period/period.module'
 import { PlanModule } from './plan/plan.module'
+import { DayModule } from './day/day.module'
+import { WorkoutModule } from './workout/workout.module'
 
 @Module({
   imports: [
@@ -12,6 +14,8 @@ import { PlanModule } from './plan/plan.module'
     PlanModule,
     PeriodModule,
     CycleModule,
+    DayModule,
+    WorkoutModule,
   ],
 })
 export class AppModule {}
