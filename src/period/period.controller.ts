@@ -6,9 +6,12 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common'
+import { Response } from 'express'
 import { ObjectId } from 'mongoose'
 import { CreatePeriodDto } from './dto/create-period.dto'
+import { FindPeriodDto } from './dto/find-period.dto'
 import { UpdatePeriodDto } from './dto/update-period.dto'
 import { Period } from './period.schema'
 import { PeriodService } from './period.service'
@@ -23,7 +26,14 @@ export class PeriodController {
   }
 
   @Get()
-  async find(): Promise<Period[]> {
+  async find(@Query() query: FindPeriodDto): Promise<Period[]> {
+    if (query) {
+      const isData = await this.periodService.find({ ...query })
+      if (isData.length) {
+        return await this.periodService.find({ ...query })
+      }
+      return await this.periodService.find()
+    }
     return await this.periodService.find()
   }
 
