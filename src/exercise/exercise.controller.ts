@@ -8,7 +8,6 @@ import {
   Post,
   Query,
 } from '@nestjs/common'
-import { Response } from 'express'
 import { ObjectId } from 'mongoose'
 import { CreateExerciseDto } from './dto/create-exercise.dto'
 import { FindExerciseDto } from './dto/find-exercise.dto'

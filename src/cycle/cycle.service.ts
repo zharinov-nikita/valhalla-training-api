@@ -15,8 +15,8 @@ export class CycleService {
     return await this.cycleModel.create(dto)
   }
 
-  async find(): Promise<Cycle[]> {
-    return await this.cycleModel.find()
+  async find(option = {}): Promise<Cycle[]> {
+    return await this.cycleModel.find({ ...option })
   }
 
   async findById(_id: ObjectId): Promise<Cycle> {

@@ -8,7 +8,6 @@ import {
   Post,
   Query,
 } from '@nestjs/common'
-import { Response } from 'express'
 import { ObjectId } from 'mongoose'
 import { CreateDayDto } from './dto/create-day.dto'
 import { FindDayDto } from './dto/find-day.dto'
