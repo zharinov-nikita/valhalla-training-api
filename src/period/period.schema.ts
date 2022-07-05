@@ -6,13 +6,19 @@ export type PeriodDocument = Period & Document
 @Schema()
 export class Period {
   @Prop({ type: String, required: true, unique: false })
-  name: string
+  title: string
+
+  @Prop({ type: String, required: true, unique: false })
+  description: string
 
   @Prop({ type: String, required: false, unique: false })
   start: string
 
   @Prop({ type: String, required: false, unique: false })
   finish: string
+
+  @Prop({ type: String, required: true, unique: false })
+  status: string
 
   @Prop({ type: mongoose.Types.ObjectId, ref: 'Plan', required: true })
   planId: ObjectId
