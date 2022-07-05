@@ -6,9 +6,12 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common'
+import { Response } from 'express'
 import { ObjectId } from 'mongoose'
 import { CreateDayDto } from './dto/create-day.dto'
+import { FindDayDto } from './dto/find-day.dto'
 import { UpdateDayDto } from './dto/update-day.dto'
 import { Day } from './day.schema'
 import { DayService } from './day.service'
@@ -23,7 +26,14 @@ export class DayController {
   }
 
   @Get()
-  async find(): Promise<Day[]> {
+  async find(@Query() query: FindDayDto): Promise<Day[]> {
+    if (query) {
+      const isData = await this.dayService.find({ ...query })
+      if (isData.length) {
+        return await this.dayService.find({ ...query })
+      }
+      return await this.dayService.find()
+    }
     return await this.dayService.find()
   }
 
