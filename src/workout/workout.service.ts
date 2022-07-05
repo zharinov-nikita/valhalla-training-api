@@ -15,8 +15,8 @@ export class WorkoutService {
     return await this.workoutModel.create(dto)
   }
 
-  async find(): Promise<Workout[]> {
-    return await this.workoutModel.find()
+  async find(option = {}): Promise<Workout[]> {
+    return await this.workoutModel.find({ ...option })
   }
 
   async findById(_id: ObjectId): Promise<Workout> {

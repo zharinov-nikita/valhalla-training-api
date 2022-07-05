@@ -6,9 +6,11 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common'
 import { ObjectId } from 'mongoose'
 import { CreateCycleDto } from './dto/create-cycle.dto'
+import { FindCycleDto } from './dto/find-cycle.dto'
 import { UpdateCycleDto } from './dto/update-cycle.dto'
 import { Cycle } from './cycle.schema'
 import { CycleService } from './cycle.service'
@@ -23,7 +25,14 @@ export class CycleController {
   }
 
   @Get()
-  async find(): Promise<Cycle[]> {
+  async find(@Query() query: FindCycleDto): Promise<Cycle[]> {
+    if (query) {
+      const isData = await this.cycleService.find({ ...query })
+      if (isData.length) {
+        return await this.cycleService.find({ ...query })
+      }
+      return await this.cycleService.find()
+    }
     return await this.cycleService.find()
   }
 

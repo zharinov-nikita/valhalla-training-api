@@ -6,9 +6,11 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common'
 import { ObjectId } from 'mongoose'
 import { CreateExerciseDto } from './dto/create-exercise.dto'
+import { FindExerciseDto } from './dto/find-exercise.dto'
 import { UpdateExerciseDto } from './dto/update-exercise.dto'
 import { Exercise } from './exercise.schema'
 import { ExerciseService } from './exercise.service'
@@ -23,7 +25,14 @@ export class ExerciseController {
   }
 
   @Get()
-  async find(): Promise<Exercise[]> {
+  async find(@Query() query: FindExerciseDto): Promise<Exercise[]> {
+    if (query) {
+      const isData = await this.exerciseService.find({ ...query })
+      if (isData.length) {
+        return await this.exerciseService.find({ ...query })
+      }
+      return await this.exerciseService.find()
+    }
     return await this.exerciseService.find()
   }
 
