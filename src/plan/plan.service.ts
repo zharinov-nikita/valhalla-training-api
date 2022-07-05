@@ -13,8 +13,8 @@ export class PlanService {
     return await this.planModel.create(dto)
   }
 
-  async find(): Promise<Plan[]> {
-    return await this.planModel.find()
+  async find(option = {}): Promise<Plan[]> {
+    return await this.planModel.find({ ...option })
   }
 
   async findById(_id: ObjectId): Promise<Plan> {
