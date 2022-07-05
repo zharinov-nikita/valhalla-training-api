@@ -14,6 +14,7 @@ import { FindDayDto } from './dto/find-day.dto'
 import { UpdateDayDto } from './dto/update-day.dto'
 import { Day } from './day.schema'
 import { DayService } from './day.service'
+import { Response } from 'express'
 
 @Controller('api/day')
 export class DayController {
@@ -25,15 +26,15 @@ export class DayController {
   }
 
   @Get()
-  async find(@Query() query: FindDayDto): Promise<Day[]> {
+  async find(res: Response, @Query() query: FindDayDto): Promise<Day[] | any> {
     if (query) {
       const isData = await this.dayService.find({ ...query })
       if (isData.length) {
         return await this.dayService.find({ ...query })
       }
-      return await this.dayService.find()
+      return res.status(500).end()
     }
-    return await this.dayService.find()
+    return res.status(500).end()
   }
 
   @Get(':_id')
