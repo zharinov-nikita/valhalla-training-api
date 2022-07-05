@@ -4,7 +4,8 @@ import { AppModule } from './app.module'
 async function start() {
   try {
     const app = await NestFactory.create(AppModule)
-    await app.listen(3000)
+    app.enableCors()
+    await app.listen(5000)
   } catch (e) {
     console.log(e)
   }
