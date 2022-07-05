@@ -8,6 +8,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common'
+import { Response } from 'express'
 import { ObjectId } from 'mongoose'
 import { CreateWorkoutDto } from './dto/create-workout.dto'
 import { FindWorkoutDto } from './dto/find-workout.dto'
@@ -25,15 +26,18 @@ export class WorkoutController {
   }
 
   @Get()
-  async find(@Query() query: FindWorkoutDto): Promise<Workout[]> {
+  async find(
+    res: Response,
+    @Query() query: FindWorkoutDto
+  ): Promise<Workout[] | any> {
     if (query) {
       const isData = await this.workoutService.find({ ...query })
       if (isData.length) {
         return await this.workoutService.find({ ...query })
       }
-      return await this.workoutService.find()
+      return res.status(500).end()
     }
-    return await this.workoutService.find()
+    return res.status(500).end()
   }
 
   @Get(':_id')

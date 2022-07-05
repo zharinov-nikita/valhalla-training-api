@@ -14,6 +14,7 @@ import { FindCycleDto } from './dto/find-cycle.dto'
 import { UpdateCycleDto } from './dto/update-cycle.dto'
 import { Cycle } from './cycle.schema'
 import { CycleService } from './cycle.service'
+import { Response } from 'express'
 
 @Controller('api/cycle')
 export class CycleController {
@@ -25,15 +26,18 @@ export class CycleController {
   }
 
   @Get()
-  async find(@Query() query: FindCycleDto): Promise<Cycle[]> {
+  async find(
+    res: Response,
+    @Query() query: FindCycleDto
+  ): Promise<Cycle[] | any> {
     if (query) {
       const isData = await this.cycleService.find({ ...query })
       if (isData.length) {
         return await this.cycleService.find({ ...query })
       }
-      return await this.cycleService.find()
+      return res.status(500).end()
     }
-    return await this.cycleService.find()
+    return res.status(500).end()
   }
 
   @Get(':_id')

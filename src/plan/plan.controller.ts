@@ -8,6 +8,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common'
+import { Response } from 'express'
 import { ObjectId } from 'mongoose'
 import { CreatePlanDto } from './dto/create-plan.dto'
 import { FindPlanDto } from './dto/find-plan.dto'
@@ -25,15 +26,18 @@ export class PlanController {
   }
 
   @Get()
-  async find(@Query() query: FindPlanDto): Promise<Plan[]> {
+  async find(
+    res: Response,
+    @Query() query: FindPlanDto
+  ): Promise<Plan[] | any> {
     if (query) {
       const isData = await this.planService.find({ ...query })
       if (isData.length) {
         return await this.planService.find({ ...query })
       }
-      return await this.planService.find()
+      return res.status(500).end()
     }
-    return await this.planService.find()
+    return res.status(500).end()
   }
 
   @Get(':_id')
