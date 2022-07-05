@@ -15,8 +15,8 @@ export class PropertyService {
     return await this.propertyModel.create(dto)
   }
 
-  async find(): Promise<Property[]> {
-    return await this.propertyModel.find()
+  async find(option = {}): Promise<Property[]> {
+    return await this.propertyModel.find({ ...option })
   }
 
   async findById(_id: ObjectId): Promise<Property> {

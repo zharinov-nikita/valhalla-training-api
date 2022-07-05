@@ -6,9 +6,11 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common'
 import { ObjectId } from 'mongoose'
 import { CreatePropertyDto } from './dto/create-property.dto'
+import { FindPropertyDto } from './dto/find-property.dto'
 import { UpdatePropertyDto } from './dto/update-property.dto'
 import { Property } from './property.schema'
 import { PropertyService } from './property.service'
@@ -23,7 +25,14 @@ export class PropertyController {
   }
 
   @Get()
-  async find(): Promise<Property[]> {
+  async find(@Query() query: FindPropertyDto): Promise<Property[]> {
+    if (query) {
+      const isData = await this.propertyService.find({ ...query })
+      if (isData.length) {
+        return await this.propertyService.find({ ...query })
+      }
+      return await this.propertyService.find()
+    }
     return await this.propertyService.find()
   }
 
