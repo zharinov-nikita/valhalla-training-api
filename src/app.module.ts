@@ -9,9 +9,12 @@ import { WorkoutModule } from './workout/workout.module'
 import { ExerciseModule } from './exercise/exercise.module'
 import { PropertyModule } from './property/property.module'
 
+const DB_URL =
+  process.env.DB_URL || 'mongodb://localhost:27017/valhalla-training-api'
+
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/valhalla-training-api'),
+    MongooseModule.forRoot(DB_URL),
     AthleteModule,
     PlanModule,
     PeriodModule,
