@@ -35,9 +35,9 @@ export class PeriodController {
       if (isData.length) {
         return await this.periodService.find({ ...query })
       }
-      return res.status(500).end()
+      return await this.periodService.find()
     }
-    return res.status(500).end()
+    return await this.periodService.find()
   }
 
   @Get(':_id')

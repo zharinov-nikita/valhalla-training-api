@@ -32,9 +32,9 @@ export class DayController {
       if (isData.length) {
         return await this.dayService.find({ ...query })
       }
-      return res.status(500).end()
+      return await this.dayService.find()
     }
-    return res.status(500).end()
+    return await this.dayService.find()
   }
 
   @Get(':_id')

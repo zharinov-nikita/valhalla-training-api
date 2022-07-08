@@ -35,9 +35,9 @@ export class ExerciseController {
       if (isData.length) {
         return await this.exerciseService.find({ ...query })
       }
-      return res.status(500).end()
+      return await this.exerciseService.find()
     }
-    return res.status(500).end()
+    return await this.exerciseService.find()
   }
 
   @Get(':_id')

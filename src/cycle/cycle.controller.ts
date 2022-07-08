@@ -35,9 +35,9 @@ export class CycleController {
       if (isData.length) {
         return await this.cycleService.find({ ...query })
       }
-      return res.status(500).end()
+      return await this.cycleService.find()
     }
-    return res.status(500).end()
+    return await this.cycleService.find()
   }
 
   @Get(':_id')
