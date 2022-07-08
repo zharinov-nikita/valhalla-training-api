@@ -13,7 +13,7 @@ import { ConfigModule } from '@nestjs/config'
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    MongooseModule.forRoot('mongodb://localhost:27017/valhalla-training-api'),
+    MongooseModule.forRoot(process.env.DATABASE_URL),
     AthleteModule,
     PlanModule,
     PeriodModule,
