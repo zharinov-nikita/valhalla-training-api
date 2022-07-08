@@ -8,10 +8,12 @@ import { DayModule } from './day/day.module'
 import { WorkoutModule } from './workout/workout.module'
 import { ExerciseModule } from './exercise/exercise.module'
 import { PropertyModule } from './property/property.module'
+import { ConfigModule } from '@nestjs/config'
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/valhalla-training-api'),
+    ConfigModule.forRoot(),
+    MongooseModule.forRoot(process.env.DATABASE_URL),
     AthleteModule,
     PlanModule,
     PeriodModule,

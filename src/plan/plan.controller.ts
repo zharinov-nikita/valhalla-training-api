@@ -35,9 +35,9 @@ export class PlanController {
       if (isData.length) {
         return await this.planService.find({ ...query })
       }
-      return res.status(500).end()
+      return await this.planService.find()
     }
-    return res.status(500).end()
+    return await this.planService.find()
   }
 
   @Get(':_id')

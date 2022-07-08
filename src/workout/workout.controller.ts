@@ -35,9 +35,9 @@ export class WorkoutController {
       if (isData.length) {
         return await this.workoutService.find({ ...query })
       }
-      return res.status(500).end()
+      return await this.workoutService.find()
     }
-    return res.status(500).end()
+    return await this.workoutService.find()
   }
 
   @Get(':_id')
