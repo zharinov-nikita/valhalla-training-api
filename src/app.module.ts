@@ -1,6 +1,11 @@
-import { Module } from '@nestjs/common'
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common'
 import { MongooseModule } from '@nestjs/mongoose'
-import { AthleteModule } from './athlete/athlete.module'
+import { AppMiddleware } from './app.middleware'
 import { CycleModule } from './cycle/cycle.module'
 import { PeriodModule } from './period/period.module'
 import { PlanModule } from './plan/plan.module'
@@ -14,7 +19,6 @@ import { ConfigModule } from '@nestjs/config'
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.DATABASE_URL),
-    AthleteModule,
     PlanModule,
     PeriodModule,
     CycleModule,
@@ -24,4 +28,10 @@ import { ConfigModule } from '@nestjs/config'
     PropertyModule,
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AppMiddleware)
+      .forRoutes({ path: '*', method: RequestMethod.ALL })
+  }
+}

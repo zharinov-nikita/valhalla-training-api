@@ -15,7 +15,11 @@ export class PropertyService {
     return await this.propertyModel.create(dto)
   }
 
-  async find(option = {}): Promise<Property[]> {
+  async find(): Promise<Property[]> {
+    return await this.propertyModel.find()
+  }
+
+  async findByField(option = {}): Promise<Property[]> {
     return await this.propertyModel.find({ ...option })
   }
 

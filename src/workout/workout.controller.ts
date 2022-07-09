@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  Res,
 } from '@nestjs/common'
 import { Response } from 'express'
 import { ObjectId } from 'mongoose'
@@ -26,18 +27,23 @@ export class WorkoutController {
   }
 
   @Get()
-  async find(
-    res: Response,
+  async findByField(
+    @Res() res: Response,
     @Query() query: FindWorkoutDto
   ): Promise<Workout[] | any> {
-    if (query) {
-      const isData = await this.workoutService.find({ ...query })
-      if (isData.length) {
-        return await this.workoutService.find({ ...query })
+    if (query.dayId) {
+      const workout = await this.workoutService.findByField({ ...query })
+      if (workout.length) {
+        return res.status(200).json(workout)
       }
-      return await this.workoutService.find()
+      return res.status(404).json({
+        statusCode: 404,
+        message: 'No workout was found for this DayID',
+      })
     }
-    return await this.workoutService.find()
+    return res
+      .status(500)
+      .json({ statusCode: 500, message: 'Query param PlanID is not specified' })
   }
 
   @Get(':_id')
