@@ -36,10 +36,7 @@ export class DayController {
       if (day.length) {
         return res.status(200).json(day)
       }
-      return res.status(404).json({
-        statusCode: 404,
-        message: 'No day was found for this CycleID',
-      })
+      return res.status(200).json([])
     }
     return res
       .status(500)
