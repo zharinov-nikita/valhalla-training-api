@@ -36,10 +36,7 @@ export class ExerciseController {
       if (exercise.length) {
         return res.status(200).json(exercise)
       }
-      return res.status(404).json({
-        statusCode: 404,
-        message: 'No exercise was found for this WorkoutID',
-      })
+      return res.status(200).json([])
     }
     return res
       .status(500)
