@@ -31,13 +31,9 @@ export class PeriodController {
     @Query() query: FindPeriodDto
   ): Promise<Period[] | any> {
     if (query) {
-      const isData = await this.periodService.find({ ...query })
-      if (isData.length) {
-        return await this.periodService.find({ ...query })
-      }
-      return await this.periodService.find()
+      return await this.periodService.find({ ...query })
     }
-    return await this.periodService.find()
+    return res.status(200).json([])
   }
 
   @Get(':_id')
