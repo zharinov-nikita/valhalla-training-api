@@ -1,60 +1,40 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-  Query,
-} from '@nestjs/common'
-import { Response } from 'express'
-import { ObjectId } from 'mongoose'
+import { Injectable } from '@nestjs/common'
+import { InjectModel } from '@nestjs/mongoose'
+import { Model, ObjectId } from 'mongoose'
+import { Workout, WorkoutDocument } from './workout.schema'
 import { CreateWorkoutDto } from './dto/create-workout.dto'
-import { FindWorkoutDto } from './dto/find-workout.dto'
 import { UpdateWorkoutDto } from './dto/update-workout.dto'
-import { Workout } from './workout.schema'
-import { WorkoutService } from './workout.service'
 
-@Controller('api/workout')
-export class WorkoutController {
-  constructor(private workoutService: WorkoutService) {}
+@Injectable()
+export class WorkoutService {
+  constructor(
+    @InjectModel(Workout.name) private workoutModel: Model<WorkoutDocument>
+  ) {}
 
-  @Post()
-  async create(@Body() dto: CreateWorkoutDto): Promise<Workout> {
-    return await this.workoutService.create(dto)
+  async create(dto: CreateWorkoutDto): Promise<Workout> {
+    return await this.workoutModel.create(dto)
   }
 
-  @Get()
-  async find(
-    res: Response,
-    @Query() query: FindWorkoutDto
-  ): Promise<Workout[] | any> {
-    if (query) {
-      const isData = await this.workoutService.find({ ...query })
-      if (isData.length) {
-        return await this.workoutService.find({ ...query })
-      }
-      return await this.workoutService.find()
-    }
-    return await this.workoutService.find()
+  async find(): Promise<Workout[]> {
+    return await this.workoutModel.find()
   }
 
-  @Get(':_id')
-  async findById(@Param('_id') _id: ObjectId): Promise<Workout> {
-    return await this.workoutService.findById(_id)
+  async findByField(option = {}): Promise<Workout[]> {
+    return await this.workoutModel.find({ ...option })
   }
 
-  @Patch(':_id')
+  async findById(_id: ObjectId): Promise<Workout> {
+    return await this.workoutModel.findById({ _id })
+  }
+
   async findByIdAndUpdate(
-    @Param('_id') _id: ObjectId,
-    @Body() dto: UpdateWorkoutDto
+    _id: ObjectId,
+    dto: UpdateWorkoutDto
   ): Promise<Workout> {
-    return await this.workoutService.findByIdAndUpdate(_id, dto)
+    return await this.workoutModel.findByIdAndUpdate(_id, dto, { new: true })
   }
 
-  @Delete(':_id')
-  async findByIdAndDelete(@Param('_id') _id: ObjectId) {
-    return await this.workoutService.findByIdAndDelete(_id)
+  async findByIdAndDelete(_id: ObjectId): Promise<Workout> {
+    return await this.workoutModel.findByIdAndDelete({ _id })
   }
 }

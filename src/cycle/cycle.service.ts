@@ -19,6 +19,10 @@ export class CycleService {
     return await this.cycleModel.find({ ...option })
   }
 
+  async findByField(option = {}): Promise<Period[]> {
+    return await this.periodModel.find({ ...option })
+  }
+
   async findById(_id: ObjectId): Promise<Cycle> {
     return await this.cycleModel.findById({ _id })
   }
