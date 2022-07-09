@@ -7,14 +7,15 @@ import {
   Patch,
   Post,
   Query,
+  Res,
 } from '@nestjs/common'
+import { Response } from 'express'
 import { ObjectId } from 'mongoose'
 import { CreateCycleDto } from './dto/create-cycle.dto'
 import { FindCycleDto } from './dto/find-cycle.dto'
 import { UpdateCycleDto } from './dto/update-cycle.dto'
 import { Cycle } from './cycle.schema'
 import { CycleService } from './cycle.service'
-import { Response } from 'express'
 
 @Controller('api/cycle')
 export class CycleController {
@@ -26,18 +27,23 @@ export class CycleController {
   }
 
   @Get()
-  async find(
-    res: Response,
+  async findByField(
+    @Res() res: Response,
     @Query() query: FindCycleDto
   ): Promise<Cycle[] | any> {
-    if (query) {
-      const isData = await this.cycleService.find({ ...query })
-      if (isData.length) {
-        return await this.cycleService.find({ ...query })
+    if (query.periodId) {
+      const cycle = await this.cycleService.findByField({ ...query })
+      if (cycle.length) {
+        return res.status(200).json(cycle)
       }
-      return await this.cycleService.find()
+      return res.status(404).json({
+        statusCode: 404,
+        message: 'No cycle was found for this PeriodID',
+      })
     }
-    return await this.cycleService.find()
+    return res
+      .status(500)
+      .json({ statusCode: 500, message: 'Query param PlanID is not specified' })
   }
 
   @Get(':_id')
