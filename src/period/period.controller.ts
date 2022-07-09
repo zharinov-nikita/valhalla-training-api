@@ -36,10 +36,7 @@ export class PeriodController {
       if (period.length) {
         return res.status(200).json(period)
       }
-      return res.status(404).json({
-        statusCode: 404,
-        message: 'No period was found for this PlanID',
-      })
+      return res.status(200).json([])
     }
     return res
       .status(500)

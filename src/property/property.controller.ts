@@ -36,10 +36,7 @@ export class PropertyController {
       if (property.length) {
         return res.status(200).json(property)
       }
-      return res.status(404).json({
-        statusCode: 404,
-        message: 'No property was found for this ExerciseID',
-      })
+      return res.status(200).json([])
     }
     return res
       .status(500)

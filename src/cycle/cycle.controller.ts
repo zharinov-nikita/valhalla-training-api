@@ -36,10 +36,7 @@ export class CycleController {
       if (cycle.length) {
         return res.status(200).json(cycle)
       }
-      return res.status(404).json({
-        statusCode: 404,
-        message: 'No cycle was found for this PeriodID',
-      })
+      return res.status(200).json([])
     }
     return res
       .status(500)
