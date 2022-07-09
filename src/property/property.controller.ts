@@ -38,7 +38,7 @@ export class PropertyController {
       }
       return res.status(404).json({
         statusCode: 404,
-        message: 'No property was found for this PlanID',
+        message: 'No property was found for this ExerciseID',
       })
     }
     return res

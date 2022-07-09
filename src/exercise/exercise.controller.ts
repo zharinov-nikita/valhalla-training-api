@@ -38,7 +38,7 @@ export class ExerciseController {
       }
       return res.status(404).json({
         statusCode: 404,
-        message: 'No exercise was found for this PlanID',
+        message: 'No exercise was found for this WorkoutID',
       })
     }
     return res

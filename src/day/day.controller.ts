@@ -7,14 +7,15 @@ import {
   Patch,
   Post,
   Query,
+  Res,
 } from '@nestjs/common'
+import { Response } from 'express'
 import { ObjectId } from 'mongoose'
 import { CreateDayDto } from './dto/create-day.dto'
 import { FindDayDto } from './dto/find-day.dto'
 import { UpdateDayDto } from './dto/update-day.dto'
 import { Day } from './day.schema'
 import { DayService } from './day.service'
-import { Response } from 'express'
 
 @Controller('api/day')
 export class DayController {
@@ -26,15 +27,23 @@ export class DayController {
   }
 
   @Get()
-  async find(res: Response, @Query() query: FindDayDto): Promise<Day[] | any> {
-    if (query) {
-      const isData = await this.dayService.find({ ...query })
-      if (isData.length) {
-        return await this.dayService.find({ ...query })
+  async findByField(
+    @Res() res: Response,
+    @Query() query: FindDayDto
+  ): Promise<Day[] | any> {
+    if (query.cycleId) {
+      const day = await this.dayService.findByField({ ...query })
+      if (day.length) {
+        return res.status(200).json(day)
       }
-      return await this.dayService.find()
+      return res.status(404).json({
+        statusCode: 404,
+        message: 'No day was found for this CycleID',
+      })
     }
-    return await this.dayService.find()
+    return res
+      .status(500)
+      .json({ statusCode: 500, message: 'Query param PlanID is not specified' })
   }
 
   @Get(':_id')
