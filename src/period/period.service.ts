@@ -15,7 +15,11 @@ export class PeriodService {
     return await this.periodModel.create(dto)
   }
 
-  async find(option = {}): Promise<Period[]> {
+  async find(): Promise<Period[]> {
+    return await this.periodModel.find()
+  }
+
+  async findByField(option = {}): Promise<Period[]> {
     return await this.periodModel.find({ ...option })
   }
 

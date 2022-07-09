@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  Res,
 } from '@nestjs/common'
 import { Response } from 'express'
 import { ObjectId } from 'mongoose'
@@ -26,14 +27,23 @@ export class PeriodController {
   }
 
   @Get()
-  async find(
-    res: Response,
+  async findByField(
+    @Res() res: Response,
     @Query() query: FindPeriodDto
   ): Promise<Period[] | any> {
-    if (query) {
-      return await this.periodService.find({ ...query })
+    if (query.planId) {
+      const period = await this.periodService.findByField({ ...query })
+      if (period.length) {
+        return res.status(200).json(period)
+      }
+      return res.status(404).json({
+        statusCode: 404,
+        message: 'No period was found for this PlanID',
+      })
     }
-    return res.status(200).json([])
+    return res
+      .status(500)
+      .json({ statusCode: 500, message: 'Query param PlanID is not specified' })
   }
 
   @Get(':_id')
