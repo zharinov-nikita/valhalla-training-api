@@ -13,7 +13,11 @@ export class DayService {
     return await this.dayModel.create(dto)
   }
 
-  async find(option = {}): Promise<Day[]> {
+  async find(): Promise<Day[]> {
+    return await this.dayModel.find()
+  }
+
+  async findByField(option = {}): Promise<Day[]> {
     return await this.dayModel.find({ ...option })
   }
 
