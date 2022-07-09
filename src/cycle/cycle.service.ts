@@ -15,12 +15,12 @@ export class CycleService {
     return await this.cycleModel.create(dto)
   }
 
-  async find(option = {}): Promise<Cycle[]> {
-    return await this.cycleModel.find({ ...option })
+  async find(): Promise<Cycle[]> {
+    return await this.cycleModel.find()
   }
 
-  async findByField(option = {}): Promise<Period[]> {
-    return await this.periodModel.find({ ...option })
+  async findByField(option = {}): Promise<Cycle[]> {
+    return await this.cycleModel.find({ ...option })
   }
 
   async findById(_id: ObjectId): Promise<Cycle> {
