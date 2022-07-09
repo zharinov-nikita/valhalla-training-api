@@ -7,7 +7,9 @@ import {
   Patch,
   Post,
   Query,
+  Res,
 } from '@nestjs/common'
+import { Response } from 'express'
 import { ObjectId } from 'mongoose'
 import { CreatePropertyDto } from './dto/create-property.dto'
 import { FindPropertyDto } from './dto/find-property.dto'
@@ -25,15 +27,23 @@ export class PropertyController {
   }
 
   @Get()
-  async find(@Query() query: FindPropertyDto): Promise<Property[]> {
-    if (query) {
-      const isData = await this.propertyService.find({ ...query })
-      if (isData.length) {
-        return await this.propertyService.find({ ...query })
+  async findByField(
+    @Res() res: Response,
+    @Query() query: FindPropertyDto
+  ): Promise<Property[] | any> {
+    if (query.exerciseId) {
+      const property = await this.propertyService.findByField({ ...query })
+      if (property.length) {
+        return res.status(200).json(property)
       }
-      return await this.propertyService.find()
+      return res.status(404).json({
+        statusCode: 404,
+        message: 'No property was found for this ExerciseID',
+      })
     }
-    return await this.propertyService.find()
+    return res
+      .status(500)
+      .json({ statusCode: 500, message: 'Query param PlanID is not specified' })
   }
 
   @Get(':_id')

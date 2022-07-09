@@ -15,7 +15,11 @@ export class CycleService {
     return await this.cycleModel.create(dto)
   }
 
-  async find(option = {}): Promise<Cycle[]> {
+  async find(): Promise<Cycle[]> {
+    return await this.cycleModel.find()
+  }
+
+  async findByField(option = {}): Promise<Cycle[]> {
     return await this.cycleModel.find({ ...option })
   }
 
