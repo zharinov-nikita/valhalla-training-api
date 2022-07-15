@@ -18,7 +18,9 @@ import { ConfigModule } from '@nestjs/config'
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    MongooseModule.forRoot(process.env.DB_URL),
+    MongooseModule.forRoot(String(process.env.MONGO_URL), {
+      dbName: String(process.env.MONGO_DB),
+    }),
     PlanModule,
     PeriodModule,
     CycleModule,
