@@ -14,6 +14,7 @@ import { WorkoutModule } from './workout/workout.module'
 import { ExerciseModule } from './exercise/exercise.module'
 import { PropertyModule } from './property/property.module'
 import { ConfigModule } from '@nestjs/config'
+import { ApproachModule } from './approach/approach.module'
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { ConfigModule } from '@nestjs/config'
     WorkoutModule,
     ExerciseModule,
     PropertyModule,
+    ApproachModule,
   ],
 })
 export class AppModule implements NestModule {
