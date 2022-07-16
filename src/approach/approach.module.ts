@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common'
 import { MongooseModule } from '@nestjs/mongoose'
-import { PropertyController } from './property.controller'
-import { Property, PropertySchema } from './property.schema'
-import { PropertyService } from './property.service'
+import { ApproachController } from './approach.controller'
+import { Approach, ApproachSchema } from './approach.schema'
+import { ApproachService } from './approach.service'
 
 @Module({
   imports: [
     MongooseModule.forFeature([
-      { name: Property.name, schema: PropertySchema },
+      { name: Approach.name, schema: ApproachSchema },
     ]),
   ],
-  controllers: [PropertyController],
-  providers: [PropertyService],
+  controllers: [ApproachController],
+  providers: [ApproachService],
 })
-export class PropertyModule {}
+export class ApproachModule {}
