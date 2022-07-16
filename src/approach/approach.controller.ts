@@ -11,30 +11,30 @@ import {
 } from '@nestjs/common'
 import { Response } from 'express'
 import { ObjectId } from 'mongoose'
-import { CreatePropertyDto } from './dto/create-approach.dto'
-import { FindPropertyDto } from './dto/find-approach.dto'
-import { UpdatePropertyDto } from './dto/update-approach.dto'
-import { Property } from './property.schema'
-import { PropertyService } from './property.service'
+import { CreateApproachDto } from './dto/create-approach.dto'
+import { FindApproachDto } from './dto/find-approach.dto'
+import { UpdateApproachDto } from './dto/update-approach.dto'
+import { Approach } from './approach.schema'
+import { ApproachService } from './approach.service'
 
-@Controller('api/property')
-export class PropertyController {
-  constructor(private propertyService: PropertyService) {}
+@Controller('api/approach')
+export class ApproachController {
+  constructor(private approachService: ApproachService) {}
 
   @Post()
-  async create(@Body() dto: CreatePropertyDto): Promise<Property> {
-    return await this.propertyService.create(dto)
+  async create(@Body() dto: CreateApproachDto): Promise<Approach> {
+    return await this.approachService.create(dto)
   }
 
   @Get()
   async findByField(
     @Res() res: Response,
-    @Query() query: FindPropertyDto
-  ): Promise<Property[] | any> {
+    @Query() query: FindApproachDto
+  ): Promise<Approach[] | any> {
     if (query.exerciseId) {
-      const property = await this.propertyService.findByField({ ...query })
-      if (property.length) {
-        return res.status(200).json(property)
+      const approach = await this.approachService.findByField({ ...query })
+      if (approach.length) {
+        return res.status(200).json(approach)
       }
       return res.status(200).json([])
     }
@@ -44,20 +44,20 @@ export class PropertyController {
   }
 
   @Get(':_id')
-  async findById(@Param('_id') _id: ObjectId): Promise<Property> {
-    return await this.propertyService.findById(_id)
+  async findById(@Param('_id') _id: ObjectId): Promise<Approach> {
+    return await this.approachService.findById(_id)
   }
 
   @Patch(':_id')
   async findByIdAndUpdate(
     @Param('_id') _id: ObjectId,
-    @Body() dto: UpdatePropertyDto
-  ): Promise<Property> {
-    return await this.propertyService.findByIdAndUpdate(_id, dto)
+    @Body() dto: UpdateApproachDto
+  ): Promise<Approach> {
+    return await this.approachService.findByIdAndUpdate(_id, dto)
   }
 
   @Delete(':_id')
   async findByIdAndDelete(@Param('_id') _id: ObjectId) {
-    return await this.propertyService.findByIdAndDelete(_id)
+    return await this.approachService.findByIdAndDelete(_id)
   }
 }
