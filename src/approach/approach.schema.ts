@@ -2,10 +2,10 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import mongoose, { Document, ObjectId } from 'mongoose'
 import { OptionType } from './dto/create-approach.dto'
 
-export type PropertyDocument = Property & Document
+export type ApproachDocument = Approach & Document
 
 @Schema()
-export class Property {
+export class Approach {
   @Prop({ type: Object, required: false, unique: false })
   option: OptionType[]
 
@@ -13,4 +13,4 @@ export class Property {
   exerciseId: ObjectId
 }
 
-export const PropertySchema = SchemaFactory.createForClass(Property)
+export const ApproachSchema = SchemaFactory.createForClass(Approach)
