@@ -13,8 +13,8 @@ export class UserService {
     return await this.userModel.create(dto)
   }
 
-  async find(option = {}): Promise<User[]> {
-    return await this.userModel.find({ ...option })
+  async find(): Promise<User[]> {
+    return await this.userModel.find()
   }
 
   async findById(_id: ObjectId): Promise<User> {
