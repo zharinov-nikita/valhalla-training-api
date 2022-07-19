@@ -15,6 +15,7 @@ import { ExerciseModule } from './exercise/exercise.module'
 import { PropertyModule } from './property/property.module'
 import { ConfigModule } from '@nestjs/config'
 import { ApproachModule } from './approach/approach.module'
+import { UserModule } from './user/user.module'
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ApproachModule } from './approach/approach.module'
     MongooseModule.forRoot(String(process.env.MONGO_URL), {
       dbName: String(process.env.MONGO_DB),
     }),
+    UserModule,
     PlanModule,
     PeriodModule,
     CycleModule,

@@ -4,4 +4,5 @@ export class UpdatePlanDto {
   readonly start: string
   readonly finish: string
   readonly status: string
+  readonly userId: string
 }

@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  Res,
 } from '@nestjs/common'
 import { Response } from 'express'
 import { ObjectId } from 'mongoose'
@@ -26,18 +27,20 @@ export class PlanController {
   }
 
   @Get()
-  async find(
-    res: Response,
+  async findByField(
+    @Res() res: Response,
     @Query() query: FindPlanDto
   ): Promise<Plan[] | any> {
-    if (query) {
-      const isData = await this.planService.find({ ...query })
-      if (isData.length) {
-        return await this.planService.find({ ...query })
+    if (query.userId) {
+      const plan = await this.planService.findByField({ ...query })
+      if (plan.length) {
+        return res.status(200).json(plan)
       }
-      return await this.planService.find()
+      return res.status(200).json([])
     }
-    return await this.planService.find()
+    return res
+      .status(500)
+      .json({ statusCode: 500, message: 'Query param PlanID is not specified' })
   }
 
   @Get(':_id')
