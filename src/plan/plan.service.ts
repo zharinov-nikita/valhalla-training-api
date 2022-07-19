@@ -13,7 +13,11 @@ export class PlanService {
     return await this.planModel.create(dto)
   }
 
-  async find(option = {}): Promise<Plan[]> {
+  async find(): Promise<Plan[]> {
+    return await this.planModel.find()
+  }
+
+  async findByField(option = {}): Promise<Plan[]> {
     return await this.planModel.find({ ...option })
   }
 
