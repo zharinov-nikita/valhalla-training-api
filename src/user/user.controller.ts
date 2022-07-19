@@ -3,14 +3,17 @@ import {
   Controller,
   Delete,
   Get,
+  Headers,
   Param,
   Patch,
   Post,
   Query,
+  Res,
 } from '@nestjs/common'
 import { Response } from 'express'
 import { ObjectId } from 'mongoose'
 import { CreateUserDto } from './dto/create-user.dto'
+import { FindUserDto } from './dto/find-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
 import { User } from './user.schema'
 import { UserService } from './user.service'
@@ -25,8 +28,20 @@ export class UserController {
   }
 
   @Get()
-  async find(): Promise<User[]> {
-    return await this.userService.find()
+  async findByField(
+    @Res() res: Response,
+    @Headers() headers: FindUserDto
+  ): Promise<User[] | any> {
+    if (headers.login && headers.password) {
+      const user = await this.userService.findByField({ ...headers })
+      if (user.length) {
+        return res.status(200).json(user)
+      }
+      return res.status(200).json([])
+    }
+    return res
+      .status(500)
+      .json({ statusCode: 500, message: 'Query param UserID is not specified' })
   }
 
   @Get(':_id')
