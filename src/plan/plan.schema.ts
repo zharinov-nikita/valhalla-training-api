@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
-import { Document } from 'mongoose'
+import mongoose, { Document, ObjectId } from 'mongoose'
 
 export type PlanDocument = Plan & Document
 
@@ -19,6 +19,9 @@ export class Plan {
 
   @Prop({ type: String, required: true, unique: false })
   status: string
+
+  @Prop({ type: mongoose.Types.ObjectId, ref: 'User', required: true })
+  userId: ObjectId
 }
 
 export const PlanSchema = SchemaFactory.createForClass(Plan)
