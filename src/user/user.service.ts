@@ -21,6 +21,10 @@ export class UserService {
     return await this.userModel.findById({ _id })
   }
 
+  async findByField(option = {}): Promise<User[]> {
+    return await this.userModel.find({ ...option })
+  }
+
   async findByIdAndUpdate(_id: ObjectId, dto: UpdateUserDto): Promise<User> {
     return await this.userModel.findByIdAndUpdate(_id, dto, { new: true })
   }
